@@ -46,7 +46,8 @@ async function fetchManifest(version) {
     if (!res.ok) throw new Error(`manifest ${res.status}`);
     const buf = await res.arrayBuffer();
     const view = new DataView(buf);
-    const skip = 4 + view.getUint32(0, true);
+    // The manifest length prefix is big-endian (unlike the .pbi format).
+    const skip = 4 + view.getUint32(0);
     const text = new TextDecoder("utf-8").decode(new Uint8Array(buf, skip));
     return JSON.parse(text);
 }
@@ -454,7 +455,7 @@ async function main() {
             const [mf, installs] = await Promise.all([fetchManifest(version), fetchInstalls(version)]);
             activePlugins = new Set((mf.jars || []).map((j) => j.internalName));
             installMap = installs || {};
-            if (!lastUpdated || lastUpdated === "Loading...") lastUpdated = (mf.display && mf.display.version) || version;
+            if (!lastUpdated || lastUpdated === "Loading...") lastUpdated = version;
             renderFooter();
             syncActivePlugins();
             for (const entry of entries) runSearch(entry);
