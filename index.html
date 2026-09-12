@@ -3,12 +3,13 @@
 
 <head>
 	<meta charset="utf8" />
-	<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.min.js"></script>
+	<title>Pluginhub searcher</title>
 
 	<style>
 		body {
 			margin: 0;
 			min-height: 100vh;
+			font-family: system-ui, sans-serif;
 		}
 
 		#app {
@@ -32,31 +33,77 @@
 		}
 
 		.error {
-			background-color: rgba(255, 0, 0, 0.5);
+			background-color: rgba(255, 0, 0, 0.35);
+			padding: 0.25rem 0.5rem;
+			margin: 0.25rem 0;
+			border-radius: 3px;
 		}
 
 		.search {
 			margin-bottom: 2em;
 		}
+
 		.search > input {
 			width: calc(100% - 2em);
+			font-family: monospace;
+			padding: 0.4em 0.6em;
+			font-size: 1em;
 		}
 
-		.list > .header {
-			cursor: pointer;
+		.results {
+			margin-top: 0.5em;
+		}
+
+		.plugins {
+			margin-bottom: 0.75em;
 		}
 
 		.plugin {
 			font-family: monospace;
 			cursor: pointer;
+			margin-right: 0.75em;
+			white-space: nowrap;
 		}
 
 		.noselect {
 			user-select: none;
+			color: #666;
 		}
 
-		ul {
-			margin: 0;
+		.lines {
+			max-height: 60vh;
+			overflow-y: auto;
+			border: 1px solid #eee;
+			border-radius: 4px;
+			padding: 0.25em 0.5em;
+		}
+
+		.line {
+			font-family: monospace;
+			font-size: 0.9em;
+			padding: 0.1em 0;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.line a {
+			text-decoration: none;
+		}
+
+		.line code {
+			white-space: pre;
+		}
+
+		.muted {
+			color: #999;
+			margin-left: 0.75em;
+		}
+
+		.note {
+			color: #666;
+			font-size: 0.85em;
+			margin-top: 0.25em;
 		}
 	</style>
 </head>
@@ -66,6 +113,6 @@
 	Loading...
 </div>
 
-<script src="deprecate.js"></script>
+<script type="module" src="app.js"></script>
 </body>
 </html>
